@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#FFEDD5] text-black relative pb-16">
-      {/* Header */}
+
       <header className="w-full px-4 md:px-12 py-4 flex justify-between items-center border-b bg-[#FFEDD5] shadow-sm">
         <Link href="/" className="transition-transform hover:scale-105">
           <h1 className="text-xl font-bold text-[#FC6D2F] tracking-wide" style={{ fontFamily: "'Press Start 2P', cursive" }}>
@@ -79,7 +79,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Mobile Menu */}
+ 
       <nav
         className={`fixed top-0 right-0 z-30 h-screen w-2/3 sm:w-1/2 bg-black text-white transform ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -107,7 +107,7 @@ export default function Home() {
       </nav>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Categories */}
+
         <div className="flex flex-wrap gap-3 justify-center mb-10">
           {categories.map((cat) => (
             <button
@@ -124,7 +124,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Cards */}
+  
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredVideos.map((item, index) => (
             <div
@@ -158,7 +158,7 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
+
       <footer className="fixed bottom-0 w-full bg-[#FFEDD5] text-center py-2 border-t text-sm font-semibold text-gray-600">
         <p className='"font-semibold text-gray-500'>Made For VIT-AP study resources| v1.0 🔥</p>
         <p>With ❤️ by being_leo & aqua.suxs</p>
