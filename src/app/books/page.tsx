@@ -81,7 +81,7 @@ export default function BookLibrary() {
         ))}
       </div>
 
-      {/* Active Section */}
+      
       <div className="mb-10">
         <div className="text-xl font-bold mb-4">{activeSection}</div>
         <div className="flex gap-4 overflow-x-auto pb-2">
