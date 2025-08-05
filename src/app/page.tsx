@@ -161,7 +161,7 @@ export default function Home() {
 
       <footer className="fixed bottom-0 w-full bg-[#FFEDD5] text-center py-2 border-t text-sm font-semibold text-gray-600">
         <p className='"font-semibold text-gray-500'>Made For VIT-AP study resources| v1.0 🔥</p>
-        <p>With ❤️ by being_leo & aqua.suxs</p>
+        <p> Made With ❤️ by Srijoy & Shagnik (1st Year Students)</p>
       </footer>
     </div>
   );
