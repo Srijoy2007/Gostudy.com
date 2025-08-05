@@ -22,7 +22,7 @@ const videoData = [
   },
   {
     title: 'E01: Writing skills',
-    src: '/videos/E1.mp4',
+    src: '/videos/E1.mkv',
     subject: 'ENGLISH',
     pdf: '/pdfs/E1.pdf',
     description: 'Some random shit about writing skills',
