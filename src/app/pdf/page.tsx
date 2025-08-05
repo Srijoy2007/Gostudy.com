@@ -39,7 +39,7 @@ function PDFContent() {
 
   return (
     <div className="min-h-screen bg-[#FFEDD5] text-black relative pb-20">
-      {/* Header */}
+     
       <header className="w-full px-6 md:px-16 py-4 flex justify-between items-center bg-[#FFEDD5] border-b shadow-md">
         <Link href="/" className="text-[#FC6D2F] text-xl font-bold tracking-wider" style={{ fontFamily: "'Press Start 2P', cursive" }}>
           GOSTUDY.COM

@@ -6,7 +6,7 @@ import React from 'react';
 export default function LecturePage() {
   const searchParams = useSearchParams();
   const title = searchParams.get('title') || 'Untitled Lecture';
-  const src = searchParams.get('src') || '/sample.mp4'; // fallback video
+  const src = searchParams.get('src') || '/sample.mp4';
 
   return (
     <div className="min-h-screen bg-[#FFEDD5] text-black p-4 md:p-8">

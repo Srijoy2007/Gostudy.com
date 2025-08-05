@@ -8,14 +8,13 @@ import { useEffect, useState } from 'react';
 const categories = ['CSE', 'ECE', 'MATHEMATICS', 'ENGLISH', 'PHYSICS', 'CHEMISTRY'];
 
 const videoData = [
-  { title: 'Introduction to C Programming', thumbnail: '/video1.jpg', subject: 'CSE', type: 'video', src: '/videos/c_intro.mp4' },
-  { title: 'Introduction to Python Programming', thumbnail: '/video2.jpg', subject: 'CSE', type: 'video', src: '/videos/python_intro.mp4' },
-  { title: 'Introduction DSA Notes', thumbnail: '/video5.jpg', subject: 'CSE', type: 'pdf', src: '/pdfs/c_programming.pdf' },
-  { title: 'Digital Logic Design', thumbnail: '/video2.jpg', subject: 'ECE', type: 'video', src: '/videos/dld.mp4' },
-  { title: 'Calculus Made Easy Notes', thumbnail: '/video3.jpg', subject: 'MATHEMATICS', type: 'pdf' },
-  { title: 'Advanced English Grammar', thumbnail: '/video4.jpg', subject: 'ENGLISH', type: 'video', src: '/videos/english_grammar.mp4' },
-  { title: 'Basic Concepts of Physics Notes', thumbnail: '/video5.jpg', subject: 'PHYSICS', type: 'pdf' },
-  { title: 'Organic Chemistry Basics', thumbnail: '/video6.jpg', subject: 'CHEMISTRY', type: 'video', src: '/videos/chemistry_basics.mp4' },
+  { title: 'CS01: Introduction to algorithm', thumbnail: '/C1.png', subject: 'CSE', type: 'video', src: '/videos/CS1.mp4' },
+  { title: 'Math01: Number System & Binomial Algebra', thumbnail: '/M1.png', subject: 'MATHEMATICS', type: 'video', src: '/videos/M1.mp4' },
+
+ 
+  
+  { title: 'E01: Writing skills', thumbnail: '/video4.jpg', subject: 'ENGLISH', type: 'video', src: '/videos/E1.mp4' },
+  
 ];
 
 export default function Home() {
