@@ -256,7 +256,7 @@ export default function LecturePage() {
       {/* Footer */}
       <footer className="text-center text-xs mt-10 text-gray-600">
         <p>Made For VIT-AP study resources | v1.0 🔥</p>
-        <p>With ❤️ by being_leo & aqua.suxs</p>
+        <p>Made With ❤️ by Srijoy & Shagnik (1st Year Students)</p>
       </footer>
     </div>
   );
