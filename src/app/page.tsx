@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-// Manually define the Resource type
+
 interface Resource {
   id: number;
   title: string;
@@ -15,47 +15,80 @@ interface Resource {
   pdf?: string;
   description?: string;
   homework?: string;
-  thumbnail?: string; // Add thumbnail as an optional property
+  thumbnail?: string; 
 }
 
 
 
 const categories = ['CSE', 'ECE', 'MATHEMATICS', 'ENGLISH', 'PHYSICS', 'CHEMISTRY'];
 
-// Static resource data with YouTube URLs and thumbnail mapping
+
 const resourcesData = [
   {
     id: 1,
     title: 'CS01: Introduction to algorithm',
     subject: 'CSE',
     type: 'video',
-    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM', // Replace with actual YouTube video ID
+    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM',
     pdf: '/pdfs/CS1.pdf',
     description: 'An overview of algorithms with practical applications and introductory concepts.',
     homework: '/CS1H.png',
-    thumbnail: '/C1.png', // Add thumbnail path
+    thumbnail: '/C1.png',
+  },
+  {
+    id: 4,
+    title: 'CS02: Python Basics for Beginners',
+    subject: 'CSE',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/BEYcTSpvu98',
+    pdf: '/pdfs/CS2.pdf',
+    description: 'An introduction to basics of Python programming and how to deal and design algorithms.',
+    homework: '',
+    thumbnail: '/C2.png',
   },
   {
     id: 2,
     title: 'Math01: Number System & Binomial Algebra',
     subject: 'MATHEMATICS',
     type: 'video',
-    youtubeUrl: 'https://www.youtube.com/embed/xyz789', // Replace with actual YouTube video ID
+    youtubeUrl: 'https://www.youtube.com/embed/l9ZIxU56aII',
     pdf: '/pdfs/MAT1.pdf',
     description: 'Covers fundamentals of number systems and introductory binomial theorems.',
-    thumbnail: '/M1.png', // Add thumbnail path
+    thumbnail: '/M1.png',
   },
   {
     id: 3,
-    title: 'E01: Writing skills',
+    title: 'E01: Writing Skills',
     subject: 'ENGLISH',
     type: 'video',
-    youtubeUrl: '', // Replace with actual YouTube video ID
+    youtubeUrl: 'https://www.youtube.com/embed/mJ3nblxv8Jo',
     pdf: '/pdfs/E1.pdf',
-    description: 'Some random shit about writing skills',
-    thumbnail: '/E1.png', // Add thumbnail path
+    description: 'An introduction to basic writing techniques and academic communication.',
+    thumbnail: '/E1.png',
+  },
+  {
+    id: 5,
+    title: 'Math02: Introduction to Matrices',
+    subject: 'MATHEMATICS',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/Ag-C6FFmUu8',
+    pdf: '/pdfs/MAT2.pdf',
+    description: 'Covers fundamentals of matrices and their use in solving linear equations.',
+    homework: '',
+    thumbnail: '/M2.png',
+  },
+  {
+    id: 6,
+    title: 'E02: Introduction to Reading Comprehension',
+    subject: 'ENGLISH',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/w1-lGZgIKqQ',
+    pdf: '/pdfs/E2.pdf',
+    description: 'Techniques to master reading comprehension and interpretative analysis.',
+    thumbnail: '/E2.png',
   },
 ];
+
 
 export default function Home() {
   const pathname = usePathname();
@@ -197,8 +230,10 @@ export default function Home() {
       </main>
 
       <footer className="w-full bg-[#FFEDD5] text-gray-500 p-2 fixed bottom-0 left-0 text-center">
-        <p className="text-sm font-semibold">Made by LEO AND AQUA | v1.0 🔥</p>
-        <p className="text-sm font-semibold">Contact for queries: Discord - leo_aqua#1234</p>
+        <p className="text-sm font-semibold">Made For VIT-AP study resources| v1.0 🔥</p>
+        <p className="text-sm font-semibold">Made With ❤️ by Srijoy & Shagnik (1st Year Students)
+
+</p>
       </footer>
     </div>
   );

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 {/*youtube link to embded https://www.youtube.com/embed/[replace this with the lasst part of link ex dkTOJXPBgpM ] */}
 const videoData = [
   {
-    title: 'CS01: Introduction to algorithm',
+    title: 'CS01: Introduction to Algorithm',
     youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM',
     subject: 'CSE',
     pdf: '/pdfs/CS1.pdf',
@@ -15,21 +15,51 @@ const videoData = [
     handwrittenNotes: '',
   },
   {
+    title: 'CS02: Python Basics for Beginners',
+    youtubeUrl: 'https://www.youtube.com/embed/BEYcTSpvu98',
+    subject: 'CSE',
+    pdf: '/pdfs/CS2.pdf',
+    description: 'An introduction to the basics of Python programming and how to design algorithms.',
+    homework: '',
+    handwrittenNotes: '',
+  },
+  {
+    title: 'E01: Writing Skills',
+    youtubeUrl: 'https://www.youtube.com/embed/mJ3nblxv8Jo',
+    subject: 'ENGLISH',
+    pdf: '/pdfs/E1.pdf',
+    description: 'A session focusing on essential writing techniques and structure.',
+    homework: '',
+    handwrittenNotes: '',
+  },
+  {
     title: 'Math01: Number System & Binomial Algebra',
-    youtubeUrl: 'https://www.youtube.com/embed/xyz789', 
+    youtubeUrl: 'https://www.youtube.com/embed/l9ZIxU56aII',
     subject: 'MATHEMATICS',
     pdf: '/pdfs/MAT1.pdf',
     description: 'Covers fundamentals of number systems and introductory binomial theorems.',
-    handwrittenNotes: '', // ❌ not uploaded yet
+    homework: '/M1.png',
+    handwrittenNotes: '',
   },
   {
-    title: 'E01: Writing skills',
-    youtubeUrl: 'https://www.youtube.com/embed/abc123', 
-    subject: 'ENGLISH',
-    pdf: '/pdfs/E1.pdf',
-    description: 'Some random shit about writing skills',
+    title: 'Math02: Introduction to Matrices',
+    youtubeUrl: 'https://www.youtube.com/embed/5HQ8F41Zxk4',
+    subject: 'MATHEMATICS',
+    pdf: '/pdfs/MAT2.pdf',
+    description: 'Understanding matrices, operations, and applications in engineering.',
+    homework: '/M2.png',
+    handwrittenNotes: '',
   },
+{
+  title: 'E02: Introduction to Reading Comprehension',
+  youtubeUrl: 'https://www.youtube.com/embed/w1-lGZgIKqQ',
+  subject: 'ENGLISH',
+  pdf: '',
+  description: 'A lecture focused on improving active and passive listening skills.',
+  handwrittenNotes: '',
+}
 ];
+
 export default function LecturePage() {
   const { title } = useParams();
   const pathname = usePathname();
