@@ -1,9 +1,9 @@
 'use client';
 
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-{/*youtube link to embded https://www.youtube.com/embed/[replace this with the lasst part of link ex dkTOJXPBgpM ] */}
+
 const videoData = [
   {
     title: 'CS01: Introduction to Algorithm',
@@ -50,14 +50,14 @@ const videoData = [
     homework: '/M2.png',
     handwrittenNotes: '',
   },
-{
-  title: 'E02: Introduction to Reading Comprehension',
-  youtubeUrl: 'https://www.youtube.com/embed/w1-lGZgIKqQ',
-  subject: 'ENGLISH',
-  pdf: '',
-  description: 'A lecture focused on improving active and passive listening skills.',
-  handwrittenNotes: '',
-}
+  {
+    title: 'E02: Introduction to Reading Comprehension',
+    youtubeUrl: 'https://www.youtube.com/embed/w1-lGZgIKqQ',
+    subject: 'ENGLISH',
+    pdf: '',
+    description: 'A lecture focused on improving active and passive listening skills.',
+    handwrittenNotes: '',
+  }
 ];
 
 export default function LecturePage() {
@@ -68,7 +68,6 @@ export default function LecturePage() {
   const videoInfo = videoData[currentIndex];
   const [progress, setProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const saved = localStorage.getItem(`watch-${decodedTitle}`);
@@ -76,24 +75,11 @@ export default function LecturePage() {
   }, [decodedTitle]);
 
   useEffect(() => {
-    if (isMenuOpen && window.innerWidth < 768) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = isMenuOpen && window.innerWidth < 768 ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [isMenuOpen]);
-
-  const handleTimeUpdate = () => {
-    // No time update needed for YouTube, but keeping for consistency
-  };
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    alert(`Copied: ${text}`);
-  };
 
   if (!videoInfo) {
     return (
@@ -108,13 +94,11 @@ export default function LecturePage() {
   const { youtubeUrl, subject, pdf, description, homework } = videoInfo;
   const match = decodedTitle.match(/\b[A-Z]{2,}\d{2}\b/);
   const lectureCode = match ? match[0] : subject?.slice(0, 3).toUpperCase();
-
   const prevLecture = videoData[currentIndex - 1];
   const nextLecture = videoData[currentIndex + 1];
 
   return (
     <div className="min-h-screen bg-[#FFEDD5] text-black pb-10 relative">
-      {/* Header/Navbar */}
       <header className="w-full px-4 md:px-12 py-4 flex justify-between items-center border-b bg-[#FFEDD5] shadow-sm">
         <Link href="/" className="transition-transform hover:scale-105">
           <h1 className="text-xl font-bold text-[#FC6D2F] tracking-wide" style={{ fontFamily: "'Press Start 2P', cursive" }}>
@@ -151,7 +135,7 @@ export default function LecturePage() {
         </nav>
       </header>
 
-      {/* Mobile Nav Drawer */}
+      {/* Mobile Drawer */}
       <nav className={`fixed top-0 right-0 z-30 h-screen w-2/3 sm:w-1/2 bg-black text-white transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out flex flex-col p-6 space-y-6 rounded-l-lg shadow-lg md:hidden`}>
         {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
           const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
@@ -171,7 +155,6 @@ export default function LecturePage() {
         })}
       </nav>
 
-      {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-2">
           <span className="inline-block bg-black text-white text-xs px-3 py-1 rounded-full font-mono">
@@ -200,23 +183,14 @@ export default function LecturePage() {
           </p>
         )}
 
-        {/* Action Buttons (Removed Download Video) */}
         <div className="mt-4 flex flex-wrap gap-3">
           {pdf && (
-            <a
-              href={pdf}
-              download
-              className="bg-[#FC6D2F] text-black px-4 py-2 rounded shadow hover:bg-orange-400"
-            >
+            <a href={pdf} download className="bg-[#FC6D2F] text-black px-4 py-2 rounded shadow hover:bg-orange-400">
               ⬇️ Download Slides
             </a>
           )}
           {homework ? (
-            <a
-              href={homework}
-              download
-              className="bg-blue-700 text-white px-4 py-2 rounded shadow hover:bg-blue-800"
-            >
+            <a href={homework} download className="bg-blue-700 text-white px-4 py-2 rounded shadow hover:bg-blue-800">
               📝 Download Homework
             </a>
           ) : (
@@ -226,7 +200,6 @@ export default function LecturePage() {
           )}
         </div>
 
-        {/* PDF Viewer */}
         {pdf && (
           <div className="mt-8">
             <h2 className="text-lg font-semibold mb-2">Lecture Slides</h2>
@@ -235,34 +208,32 @@ export default function LecturePage() {
             </div>
           </div>
         )}
-        {/* Handwritten Notes Section */}
-<div className="mt-8">
-  <h2 className="text-lg font-semibold mb-2">Handwritten Notes</h2>
-  {videoInfo.handwrittenNotes ? (
-    <div className="flex flex-col gap-3">
-      <a
-        href={videoInfo.handwrittenNotes}
-        download
-        className="bg-[#FC6D2F] text-black border-black px-4 py-2 rounded shadow inline-block w-fit"
-      >
-       Download Handwritten Notes
-      </a>
-      <iframe src={videoInfo.handwrittenNotes} className="w-full h-[500px] rounded shadow" loading="lazy" />
-    </div>
-  ) : (
-    <div className="bg-yellow-100 p-4 rounded shadow text-sm text-gray-800">
-      <p className="mb-2">Handwritten notes haven't been uploaded yet.</p>
-      <p>If you've made notes for this lecture, please send them to me:</p>
-      <ul className="list-disc list-inside mt-2">
-        <li><strong>Discord:</strong> <code>being_leo</code></li>
-        <li><strong>Email:</strong> <a href="mailto:srijoyg07@gmail.com" className="text-blue-700 underline">srijoyg07@gmail.com</a></li>
-      </ul>
-    </div>
-  )}
-</div>
 
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold mb-2">Handwritten Notes</h2>
+          {videoInfo.handwrittenNotes ? (
+            <div className="flex flex-col gap-3">
+              <a
+                href={videoInfo.handwrittenNotes}
+                download
+                className="bg-[#FC6D2F] text-black border-black px-4 py-2 rounded shadow inline-block w-fit"
+              >
+                Download Handwritten Notes
+              </a>
+              <iframe src={videoInfo.handwrittenNotes} className="w-full h-[500px] rounded shadow" loading="lazy" />
+            </div>
+          ) : (
+            <div className="bg-yellow-100 p-4 rounded shadow text-sm text-gray-800">
+              <p className="mb-2">Handwritten notes haven&apos;t been uploaded yet.</p>
+              <p>If you&apos;ve made notes for this lecture, please send them to me:</p>
+              <ul className="list-disc list-inside mt-2">
+                <li><strong>Discord:</strong> <code>being_leo</code></li>
+                <li><strong>Email:</strong> <a href="mailto:srijoyg07@gmail.com" className="text-blue-700 underline">srijoyg07@gmail.com</a></li>
+              </ul>
+            </div>
+          )}
+        </div>
 
-        {/* Navigation Buttons */}
         <div className="mt-10 flex justify-between items-center">
           {prevLecture ? (
             <Link
@@ -283,10 +254,9 @@ export default function LecturePage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="text-center text-xs mt-10 text-gray-600">
         <p>Made For VIT-AP study resources | v1.0 🔥</p>
-        <p>Made With ❤️ by Srijoy & Shagnik (1st Year Students)</p>
+        <p>Made With ❤️ by Srijoy &amp; Shagnik (1st Year Students)</p>
       </footer>
     </div>
   );

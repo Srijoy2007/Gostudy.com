@@ -29,7 +29,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Condensed:wght@700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/logo.png" type="image/png"/>
+        <link rel="icon" href="/logo.png" type="image"/>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

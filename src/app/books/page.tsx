@@ -224,26 +224,19 @@ export default function BookLibrary() {
                     download
                     className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
                   >
-                    ⬇️ Download PDF
+                    Download PDF
                   </a>
 
                   <button className="px-4 py-2 rounded border hover:bg-gray-100">
-                    🔖 Bookmark
+                    Bookmark
                   </button>
                   <button className="px-4 py-2 rounded border hover:bg-gray-100">
-                    💬 Comment
+                    Comment
                   </button>
                 </div>
 
-                <div className="text-sm text-gray-700">
-                  <p><strong>Scope for Backend:</strong></p>
-                  <ul className="list-disc pl-6">
-                    <li>Rating system with average & stars</li>
-                    <li>Comment section with timestamp</li>
-                    <li>Bookmark/favorite list per user</li>
-                    <li>Reading history tracking</li>
-                    <li>Pagination or infinite scroll</li>
-                  </ul>
+               
+                  
                 </div>
               </div>
             </div>
