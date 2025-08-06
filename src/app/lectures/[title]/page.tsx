@@ -3,32 +3,33 @@
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
+{/*youtube link to embded https://www.youtube.com/embed/[replace this with the lasst part of link ex dkTOJXPBgpM ] */}
 const videoData = [
   {
     title: 'CS01: Introduction to algorithm',
-    src: '/videos/CS1.mp4',
+    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM',
     subject: 'CSE',
     pdf: '/pdfs/CS1.pdf',
     description: 'An overview of algorithms with practical applications and introductory concepts.',
-    homework: '/CS1H.png',
+    homework: '/M1.png',
+    handwrittenNotes: '',
   },
   {
     title: 'Math01: Number System & Binomial Algebra',
-    src: '/videos/M1.mp4',
+    youtubeUrl: 'https://www.youtube.com/embed/xyz789', 
     subject: 'MATHEMATICS',
     pdf: '/pdfs/MAT1.pdf',
     description: 'Covers fundamentals of number systems and introductory binomial theorems.',
+    handwrittenNotes: '', // ❌ not uploaded yet
   },
   {
     title: 'E01: Writing skills',
-    src: '/videos/E1.mkv',
+    youtubeUrl: 'https://www.youtube.com/embed/abc123', 
     subject: 'ENGLISH',
     pdf: '/pdfs/E1.pdf',
     description: 'Some random shit about writing skills',
   },
 ];
-
 export default function LecturePage() {
   const { title } = useParams();
   const pathname = usePathname();
@@ -55,10 +56,8 @@ export default function LecturePage() {
     };
   }, [isMenuOpen]);
 
-  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
-    const currentTime = e.currentTarget.currentTime;
-    localStorage.setItem(`watch-${decodedTitle}`, currentTime.toString());
-    setProgress(currentTime);
+  const handleTimeUpdate = () => {
+    // No time update needed for YouTube, but keeping for consistency
   };
 
   const copyToClipboard = (text: string) => {
@@ -76,7 +75,7 @@ export default function LecturePage() {
     );
   }
 
-  const { src, subject, pdf, description, homework } = videoInfo;
+  const { youtubeUrl, subject, pdf, description, homework } = videoInfo;
   const match = decodedTitle.match(/\b[A-Z]{2,}\d{2}\b/);
   const lectureCode = match ? match[0] : subject?.slice(0, 3).toUpperCase();
 
@@ -155,14 +154,14 @@ export default function LecturePage() {
         {description && <p className="text-sm text-gray-800 mb-4">📝 {description}</p>}
 
         <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-          <video
-            src={src}
-            controls
-            onTimeUpdate={handleTimeUpdate}
+          <iframe
+            src={youtubeUrl}
+            title={decodedTitle}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
             className="w-full h-full"
-          >
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
 
         {progress > 0 && (
@@ -171,15 +170,8 @@ export default function LecturePage() {
           </p>
         )}
 
-        {/* Action Buttons */}
+        {/* Action Buttons (Removed Download Video) */}
         <div className="mt-4 flex flex-wrap gap-3">
-          <a
-            href={src}
-            download
-            className="bg-black text-white px-4 py-2 rounded shadow hover:bg-gray-800"
-          >
-            ⬇️ Download Video
-          </a>
           {pdf && (
             <a
               href={pdf}
@@ -213,6 +205,32 @@ export default function LecturePage() {
             </div>
           </div>
         )}
+        {/* Handwritten Notes Section */}
+<div className="mt-8">
+  <h2 className="text-lg font-semibold mb-2">Handwritten Notes</h2>
+  {videoInfo.handwrittenNotes ? (
+    <div className="flex flex-col gap-3">
+      <a
+        href={videoInfo.handwrittenNotes}
+        download
+        className="bg-[#FC6D2F] text-black border-black px-4 py-2 rounded shadow inline-block w-fit"
+      >
+       Download Handwritten Notes
+      </a>
+      <iframe src={videoInfo.handwrittenNotes} className="w-full h-[500px] rounded shadow" loading="lazy" />
+    </div>
+  ) : (
+    <div className="bg-yellow-100 p-4 rounded shadow text-sm text-gray-800">
+      <p className="mb-2">Handwritten notes haven't been uploaded yet.</p>
+      <p>If you've made notes for this lecture, please send them to me:</p>
+      <ul className="list-disc list-inside mt-2">
+        <li><strong>Discord:</strong> <code>being_leo</code></li>
+        <li><strong>Email:</strong> <a href="mailto:srijoyg07@gmail.com" className="text-blue-700 underline">srijoyg07@gmail.com</a></li>
+      </ul>
+    </div>
+  )}
+</div>
+
 
         {/* Navigation Buttons */}
         <div className="mt-10 flex justify-between items-center">

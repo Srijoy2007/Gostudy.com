@@ -3,27 +3,72 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// Manually define the Resource type
+interface Resource {
+  id: number;
+  title: string;
+  subject: string;
+  type: string;
+  youtubeUrl: string; 
+  pdf?: string;
+  description?: string;
+  homework?: string;
+  thumbnail?: string; // Add thumbnail as an optional property
+}
+
+
 
 const categories = ['CSE', 'ECE', 'MATHEMATICS', 'ENGLISH', 'PHYSICS', 'CHEMISTRY'];
 
-const videoData = [
-  { title: 'CS01: Introduction to algorithm', thumbnail: '/C1.png', subject: 'CSE', type: 'video', src: '/videos/CS1.mp4' },
-  { title: 'Math01: Number System & Binomial Algebra', thumbnail: '/M1.png', subject: 'MATHEMATICS', type: 'video', src: '/videos/M1.mp4' },
-
- 
-  
-  { title: 'E01: Writing skills', thumbnail: '/video4.jpg', subject: 'ENGLISH', type: 'video', src: '/videos/E1.mp4' },
-  
+// Static resource data with YouTube URLs and thumbnail mapping
+const resourcesData = [
+  {
+    id: 1,
+    title: 'CS01: Introduction to algorithm',
+    subject: 'CSE',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM', // Replace with actual YouTube video ID
+    pdf: '/pdfs/CS1.pdf',
+    description: 'An overview of algorithms with practical applications and introductory concepts.',
+    homework: '/CS1H.png',
+    thumbnail: '/C1.png', // Add thumbnail path
+  },
+  {
+    id: 2,
+    title: 'Math01: Number System & Binomial Algebra',
+    subject: 'MATHEMATICS',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/xyz789', // Replace with actual YouTube video ID
+    pdf: '/pdfs/MAT1.pdf',
+    description: 'Covers fundamentals of number systems and introductory binomial theorems.',
+    thumbnail: '/M1.png', // Add thumbnail path
+  },
+  {
+    id: 3,
+    title: 'E01: Writing skills',
+    subject: 'ENGLISH',
+    type: 'video',
+    youtubeUrl: '', // Replace with actual YouTube video ID
+    pdf: '/pdfs/E1.pdf',
+    description: 'Some random shit about writing skills',
+    thumbnail: '/E1.png', // Add thumbnail path
+  },
 ];
 
 export default function Home() {
   const pathname = usePathname();
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState('CSE');
+  const [resources, setResources] = useState<Resource[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const filteredVideos = videoData.filter((item) => item.subject === selectedCategory);
+  useEffect(() => {
+    // Filter resources based on selected category
+    const filteredResources = resourcesData.filter((item) => item.subject === selectedCategory);
+    setResources(filteredResources);
+  }, [selectedCategory]);
 
   useEffect(() => {
     if (isMenuOpen && window.innerWidth < 768) {
@@ -37,35 +82,41 @@ export default function Home() {
   }, [isMenuOpen]);
 
   return (
-    <div className="min-h-screen bg-[#FFEDD5] text-black relative pb-16">
-
+    <div className="min-h-screen bg-[#FFEDD5] text-black relative">
       <header className="w-full px-4 md:px-12 py-4 flex justify-between items-center border-b bg-[#FFEDD5] shadow-sm">
-        <Link href="/" className="transition-transform hover:scale-105">
-          <h1 className="text-xl font-bold text-[#FC6D2F] tracking-wide" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+        <Link href="/" className="cursor-pointer transition-transform duration-200 hover:scale-105">
+          <h1 style={{ fontFamily: "'Press Start 2P', cursive", color: '#FC6D2F', fontSize: '24px', margin: 0 }}>
             GOSTUDY.COM
           </h1>
         </Link>
-
         <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-black focus:outline-none"
+            aria-label="Toggle menu"
+          >
             <div className="w-6 h-5 flex flex-col justify-between">
-              <span className={`w-full h-0.5 bg-black transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`w-full h-0.5 bg-black transition-all ${isMenuOpen ? 'opacity-0' : ''}`} />
-              <span className={`w-full h-0.5 bg-black transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              <span
+                className={`w-full h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
+              ></span>
+              <span
+                className={`w-full h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}
+              ></span>
+              <span
+                className={`w-full h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
+              ></span>
             </div>
           </button>
         </div>
-
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex space-x-4 md:space-x-6">
           {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
             const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
             const isActive = pathname === href;
-
             return (
               <Link
                 key={link}
                 href={href}
-                className={`text-sm font-semibold px-4 py-1 rounded border transition-all ${
+                className={`text-sm md:text-base font-semibold px-3 py-1 rounded border transition ${
                   isActive
                     ? 'bg-[#FC6D2F] text-black border-black'
                     : 'text-black hover:text-blue-600'
@@ -78,26 +129,24 @@ export default function Home() {
         </nav>
       </header>
 
- 
       <nav
-        className={`fixed top-0 right-0 z-30 h-screen w-2/3 sm:w-1/2 bg-black text-white transform ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        } transition-transform duration-300 ease-in-out flex flex-col p-6 space-y-6 rounded-l-lg shadow-lg md:hidden`}
+        className={`${isMenuOpen ? 'flex flex-col slide-in' : 'hidden'} md:hidden fixed top-0 right-0 bg-black text-white p-6 shadow-md rounded-l-lg w-1/2 h-screen z-20`}
+        style={{ transformOrigin: 'right', transition: 'transform 0.4s ease-in-out' }}
       >
         {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
           const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
           const isActive = pathname === href;
-
           return (
             <Link
               key={link}
               href={href}
               onClick={() => setIsMenuOpen(false)}
-              className={`block text-base font-semibold px-4 py-2 rounded border ${
+              className={`block py-3 text-sm font-semibold px-4 rounded border transition ${
                 isActive
                   ? 'bg-[#FC6D2F] text-black border-black'
-                  : 'hover:text-blue-500'
+                  : 'hover:text-blue-600'
               }`}
+              style={{ marginBottom: '1rem' }}
             >
               {link.toUpperCase()}
             </Link>
@@ -105,50 +154,40 @@ export default function Home() {
         })}
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
-
-        <div className="flex flex-wrap gap-3 justify-center mb-10">
+      <main className="container mx-auto p-6">
+        <div className="flex flex-wrap gap-3 justify-center mb-8">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 border-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 border rounded-full font-medium text-sm ${
                 selectedCategory === cat
-                  ? 'bg-black text-white border-black'
-                  : 'bg-white text-black hover:bg-gray-100 border-gray-300'
-              }`}
+                  ? 'bg-black text-white'
+                  : 'bg-white text-black hover:bg-gray-100'
+              } transition`}
             >
               {cat}
             </button>
           ))}
         </div>
-
-  
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredVideos.map((item, index) => (
+          {resources.map((item) => (
             <div
-              key={index}
-              onClick={() => {
-                if (!item.title) return;
-                if (item.type === 'video') {
-                  router.push(`/lectures/${encodeURIComponent(item.title)}`);
-                } else {
-                  router.push(`/pdf?title=${encodeURIComponent(item.title)}`);
-                }
-              }}
-              className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden cursor-pointer group"
+              key={item.id}
+              className="bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden cursor-pointer group"
+              onClick={() => router.push(`/lectures/${encodeURIComponent(item.title)}`)}
             >
               <div className="relative w-full h-40">
                 <Image
-                  src={item.thumbnail}
+                  src={item.thumbnail || '/video-placeholder.jpg'} // Use item.thumbnail or fallback to placeholder
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="p-4">
+              <div className="p-3 relative">
                 <h3 className="font-semibold text-sm text-center">{item.title}</h3>
-                <span className="absolute bottom-2 right-2 text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                <span className="absolute bottom-2 right-2 text-xs text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">
                   {item.type.toUpperCase()}
                 </span>
               </div>
@@ -157,10 +196,9 @@ export default function Home() {
         </div>
       </main>
 
-
-      <footer className="fixed bottom-0 w-full bg-[#FFEDD5] text-center py-2 border-t text-sm font-semibold text-gray-600">
-        <p className='"font-semibold text-gray-500'>Made For VIT-AP study resources| v1.0 🔥</p>
-        <p> Made With ❤️ by Srijoy & Shagnik (1st Year Students)</p>
+      <footer className="w-full bg-[#FFEDD5] text-gray-500 p-2 fixed bottom-0 left-0 text-center">
+        <p className="text-sm font-semibold">Made by LEO AND AQUA | v1.0 🔥</p>
+        <p className="text-sm font-semibold">Contact for queries: Discord - leo_aqua#1234</p>
       </footer>
     </div>
   );
