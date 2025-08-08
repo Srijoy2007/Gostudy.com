@@ -20,7 +20,7 @@ interface Resource {
 
 
 
-const categories = ['CSE', 'ECE', 'MATHEMATICS', 'ENGLISH', 'PHYSICS', 'CHEMISTRY'];
+const categories = ['CSE', 'ECE', 'MATHEMATICS', 'ENGLISH', 'PHYSICS', 'CHEMISTRY', 'MANAGEMENT'];
 
 
 const resourcesData = [
@@ -87,6 +87,46 @@ const resourcesData = [
     description: 'Techniques to master reading comprehension and interpretative analysis.',
     thumbnail: '/E2.png',
   },
+    {
+    id: 7,
+    title: 'ECE01: Fundementals of electrical and electronics engineering',
+    subject: 'ECE',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/nqMlXbfoX44',
+    pdf: '/pdfs/E2.pdf',
+    description: 'Introduction to basics of electrical engineering , conductors , semiconductors , etc.',
+    thumbnail: '/ECE1.png',
+  },
+      {
+    id: 8,
+    title: 'Math03: Functions',
+    subject: 'MATHEMATICS',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/ZRVnNjHoX5k',
+    pdf: '/pdfs/MAT3.pdf',
+    description: 'Functions fundementals',
+    thumbnail: '/M3.png',
+  },
+        {
+    id: 9,
+    title: 'MANGEMENT01: FINANCE FOR ENGINEERS',
+    subject: 'MANAGEMENT',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/8khIp20Avw0',
+    pdf: '',
+    description: 'Functions fundementals',
+    thumbnail: '/Mngm1.png',
+  },
+          {
+    id: 10,
+    title: 'Phy01: Basic electricity',
+    subject: 'PHYSICS',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/LPuh-hg1adg',
+    pdf: '',
+    description: 'Basics of electricity',
+    thumbnail: '/P1.png',
+  },
 ];
 
 
@@ -97,8 +137,8 @@ export default function Home() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    // Filter resources based on selected category
+      useEffect(() => {
+    
     const filteredResources = resourcesData.filter((item) => item.subject === selectedCategory);
     setResources(filteredResources);
   }, [selectedCategory]);
@@ -117,7 +157,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FFEDD5] text-black relative">
       <header className="w-full px-4 md:px-12 py-4 flex justify-between items-center border-b bg-[#FFEDD5] shadow-sm">
-        <Link href="/" className="cursor-pointer transition-transform duration-200 hover:scale-105">
+           <Link href="/" className="cursor-pointer transition-transform duration-200 hover:scale-105">
           <h1 style={{ fontFamily: "'Press Start 2P', cursive", color: '#FC6D2F', fontSize: '24px', margin: 0 }}>
             GOSTUDY.COM
           </h1>
@@ -128,7 +168,7 @@ export default function Home() {
             className="text-black focus:outline-none"
             aria-label="Toggle menu"
           >
-            <div className="w-6 h-5 flex flex-col justify-between">
+                 <div className="w-6 h-5 flex flex-col justify-between">
               <span
                 className={`w-full h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
               ></span>
@@ -141,7 +181,7 @@ export default function Home() {
             </div>
           </button>
         </div>
-        <nav className="hidden md:flex space-x-4 md:space-x-6">
+             <nav className="hidden md:flex space-x-4 md:space-x-6">
           {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
             const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
             const isActive = pathname === href;
@@ -162,13 +202,13 @@ export default function Home() {
         </nav>
       </header>
 
-      <nav
+            <nav
         className={`${isMenuOpen ? 'flex flex-col slide-in' : 'hidden'} md:hidden fixed top-0 right-0 bg-black text-white p-6 shadow-md rounded-l-lg w-1/2 h-screen z-20`}
         style={{ transformOrigin: 'right', transition: 'transform 0.4s ease-in-out' }}
       >
         {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
           const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
-          const isActive = pathname === href;
+              const isActive = pathname === href;
           return (
             <Link
               key={link}
@@ -187,14 +227,14 @@ export default function Home() {
         })}
       </nav>
 
-      <main className="container mx-auto p-6">
+         <main className="container mx-auto p-6">
         <div className="flex flex-wrap gap-3 justify-center mb-8">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 border rounded-full font-medium text-sm ${
-                selectedCategory === cat
+           selectedCategory === cat
                   ? 'bg-black text-white'
                   : 'bg-white text-black hover:bg-gray-100'
               } transition`}
@@ -210,16 +250,16 @@ export default function Home() {
               className="bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden cursor-pointer group"
               onClick={() => router.push(`/lectures/${encodeURIComponent(item.title)}`)}
             >
-              <div className="relative w-full h-40">
+                    <div className="relative w-full h-40">
                 <Image
-                  src={item.thumbnail || '/video-placeholder.jpg'} // Use item.thumbnail or fallback to placeholder
+                  src={item.thumbnail || '/video-placeholder.jpg'} 
                   alt={item.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
               <div className="p-3 relative">
-                <h3 className="font-semibold text-sm text-center">{item.title}</h3>
+           <h3 className="font-semibold text-sm text-center">{item.title}</h3>
                 <span className="absolute bottom-2 right-2 text-xs text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">
                   {item.type.toUpperCase()}
                 </span>
@@ -229,7 +269,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="w-full bg-[#FFEDD5] text-gray-500 p-2 fixed bottom-0 left-0 text-center">
+         <footer className="w-full bg-[#FFEDD5] text-gray-500 p-2 fixed bottom-0 left-0 text-center">
         <p className="text-sm font-semibold">Made For VIT-AP study resources| v1.0 🔥</p>
         <p className="text-sm font-semibold">Made With ❤️ by Srijoy & Shagnik (1st Year Students)
 

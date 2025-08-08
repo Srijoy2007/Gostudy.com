@@ -5,14 +5,16 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const videoData = [
-  {
-    title: 'CS01: Introduction to Algorithm',
-    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM',
+   {
+    id: 1,
+    title: 'CS01: Introduction to algorithm',
     subject: 'CSE',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/dkTOJXPBgpM',
     pdf: '/pdfs/CS1.pdf',
     description: 'An overview of algorithms with practical applications and introductory concepts.',
-    homework: '/M1.png',
-    handwrittenNotes: '',
+    homework: '/CS1H.png',
+    thumbnail: '/C1.png',
   },
   {
     title: 'CS02: Python Basics for Beginners',
@@ -57,7 +59,48 @@ const videoData = [
     pdf: '',
     description: 'A lecture focused on improving active and passive listening skills.',
     handwrittenNotes: '',
-  }
+  },
+    {
+   
+    title: 'ECE01: Fundementals of electrical and electronics engineering',
+    subject: 'ECE',
+
+    youtubeUrl: 'https://www.youtube.com/embed/nqMlXbfoX44',
+    pdf: '/ec1.pdf',
+    description: 'Introduction to basics of electrical engineering , conductors , semiconductors , etc.',
+    handwrittenNotes: '',
+  },
+     {
+    
+    title: 'Math03: Functions',
+    subject: 'MATHEMATICS',
+
+    youtubeUrl: 'https://www.youtube.com/embed/ZRVnNjHoX5k',
+    pdf: '/pdfs/MAT3.pdf',
+    description: 'Functions fundementals',
+    thumbnail: '/M3.png',
+    handwrittenNotes: '',
+  },
+     {
+  
+    title: 'MANGEMENT01: FINANCE FOR ENGINEERS',
+    subject: 'MANAGEMENT',
+  
+    youtubeUrl: 'https://www.youtube.com/embed/8khIp20Avw0',
+    pdf: '',
+    description: 'Functions fundementals',
+    
+  },
+            {
+    id: 10,
+    title: 'Phy01: Basic electricity',
+    subject: 'PHYSICS',
+   
+    youtubeUrl: 'https://www.youtube.com/embed/LPuh-hg1adg',
+    pdf: '/pdfs/P1.pdf',
+    description: 'Basics of electricity',
+    thumbnail: '/P1.png',
+  },
 ];
 
 export default function LecturePage() {
@@ -135,28 +178,28 @@ export default function LecturePage() {
         </nav>
       </header>
 
-      {/* Mobile Drawer */}
+      
       <nav className={`fixed top-0 right-0 z-30 h-screen w-2/3 sm:w-1/2 bg-black text-white transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out flex flex-col p-6 space-y-6 rounded-l-lg shadow-lg md:hidden`}>
-        {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
+      {['Home', 'Lectures', 'Books', 'Notes'].map((link) => {
           const href = link === 'Home' ? '/' : `/${link.toLowerCase()}`;
-          const isActive = pathname === href || (link === 'Lectures' && pathname.includes('/lectures'));
+         const isActive = pathname === href || (link === 'Lectures' && pathname.includes('/lectures'));
           return (
             <Link
               key={link}
-              href={href}
+           href={href}
               onClick={() => setIsMenuOpen(false)}
               className={`block text-base font-semibold px-4 py-2 rounded border ${
-                isActive ? 'bg-[#FC6D2F] text-black border-black' : 'hover:text-blue-500'
+        isActive ? 'bg-[#FC6D2F] text-black border-black' : 'hover:text-blue-500'
               }`}
             >
               {link.toUpperCase()}
-            </Link>
+               </Link>
           );
         })}
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="mb-2">
+     <div className="mb-2">
           <span className="inline-block bg-black text-white text-xs px-3 py-1 rounded-full font-mono">
             {lectureCode || subject}
           </span>
@@ -166,7 +209,7 @@ export default function LecturePage() {
 
         {description && <p className="text-sm text-gray-800 mb-4">📝 {description}</p>}
 
-        <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+          <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
           <iframe
             src={youtubeUrl}
             title={decodedTitle}
@@ -177,19 +220,19 @@ export default function LecturePage() {
           />
         </div>
 
-        {progress > 0 && (
+             {progress > 0 && (
           <p className="text-sm mt-2 text-gray-700">
             ⏱️ Last watched at {Math.floor(progress)}s
           </p>
         )}
 
-        <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-3">
           {pdf && (
             <a href={pdf} download className="bg-[#FC6D2F] text-black px-4 py-2 rounded shadow hover:bg-orange-400">
               ⬇️ Download Slides
             </a>
           )}
-          {homework ? (
+      {homework ? (
             <a href={homework} download className="bg-blue-700 text-white px-4 py-2 rounded shadow hover:bg-blue-800">
               📝 Download Homework
             </a>
@@ -234,7 +277,7 @@ export default function LecturePage() {
           )}
         </div>
 
-        <div className="mt-10 flex justify-between items-center">
+    <div className="mt-10 flex justify-between items-center">
           {prevLecture ? (
             <Link
               href={`/lectures/${encodeURIComponent(prevLecture.title)}`}
@@ -243,7 +286,7 @@ export default function LecturePage() {
               ⬅️ Prev Lecture
             </Link>
           ) : <div />}
-          {nextLecture && (
+           {nextLecture && (
             <Link
               href={`/lectures/${encodeURIComponent(nextLecture.title)}`}
               className="text-sm px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
