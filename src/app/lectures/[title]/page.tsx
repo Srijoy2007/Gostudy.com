@@ -101,6 +101,36 @@ const videoData = [
     description: 'Basics of electricity',
     thumbnail: '/P1.png',
   },
+  {
+    id: 10,
+    title: 'Phy01: Basic electricity',
+    subject: 'PHYSICS',
+   
+    youtubeUrl: 'https://www.youtube.com/embed/LPuh-hg1adg',
+    pdf: '/pdfs/P1.pdf',
+    description: 'Basics of electricity',
+    thumbnail: '/P1.png',
+  },
+             {
+    id: 11,
+    title: 'ECE02:Kirchoffs Law',
+    subject: 'ECE',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/FbEATAEnQ6o',
+    pdf: '/pdfs/EC2.pdf',
+    description: 'Basics of electricity',
+    thumbnail: '/ECE2.png',
+  },
+              {
+    id: 12,
+    title: 'CHEM01:Chemistry and environmental studies',
+    subject: 'CHEMISTRY',
+    type: 'video',
+    youtubeUrl: 'https://www.youtube.com/embed/tp2L-77oJcc',
+    pdf: '/pdfs/CHE01.pdf',
+    description: 'Basics of electricity',
+    thumbnail: '/ECE2.png',
+  },
 ];
 
 export default function LecturePage() {
